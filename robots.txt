@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /blogs/
-Sitemap: https://mjabelcina.com/sitemap.xml
+Sitemap: https://www.mjabelcina.com/sitemap.xml
