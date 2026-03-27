@@ -29,10 +29,6 @@
     <meta name="twitter:description" content="Full-stack developer specializing in Python APIs, web scraping, automation, SEO tooling, and agentic AI.">
     <meta name="twitter:image" content="https://mjabelcina.com/assets/og.png">
 
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 
     <!-- Structured Data: Person -->
@@ -80,7 +76,7 @@
           "description": "GEO (Generative Engine Optimization) audit agency"
         },
         "knowsAbout": [
-          "Python", "JavaScript", "TypeScript", "FastAPI", "REST APIs",
+          "Python", "JavaScript", "TypeScript", "FastAPI", "Hono", "REST APIs",
           "Web Scraping", "Automation", "SEO Tooling", "GEO Auditing",
           "Generative Engine Optimization", "PostgreSQL", "Redis", "Supabase",
           "React", "Next.js", "n8n", "Celery", "Data Processing",
@@ -132,10 +128,15 @@
           <a href="#projects">Projects</a>
           <a href="mailto:mjabelcina.dev@gmail.com">Contact</a>
         </nav>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode">
-          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        </button>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </button>
+          <button class="nav-burger" id="navBurger" type="button" aria-label="Toggle navigation menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+          </button>
+        </div>
       </header>
 
       <!-- Hero -->
@@ -144,6 +145,7 @@
           <p class="hero-greeting">Hey, I'm</p>
           <h1 class="hero-name">Michael John Angelo <em>Belciña</em></h1>
           <p class="hero-desc">I build backend-heavy systems, crawlers, automation pipelines, and GEO/SEO tools. Lately I've been deep into agentic AI workflows and shipping with coding agents.</p>
+          <p class="hero-currently">Currently: <strong>building GEO audit tooling at Poliris.io</strong>, experimenting with multi-agent simulations.</p>
           <div class="hero-links">
             <a href="mailto:mjabelcina.dev@gmail.com" class="link-arrow">Get in touch</a>
             <a href="https://github.com/zewhal" target="_blank" rel="noopener noreferrer" class="link-arrow">GitHub</a>
@@ -175,6 +177,7 @@
               <h2>Backend</h2>
               <ul>
                 <li>FastAPI</li>
+                <li>Hono</li>
                 <li>REST APIs</li>
                 <li>Celery</li>
               </ul>
@@ -321,23 +324,44 @@
     </div>
 
     <script>
-      // Theme toggle
+      // Theme: respect stored preference, then OS preference, then default dark
       (function() {
-        const toggle = document.getElementById('themeToggle');
-        const root = document.documentElement;
-        const stored = localStorage.getItem('theme');
-        if (stored) root.setAttribute('data-theme', stored);
+        var toggle = document.getElementById('themeToggle');
+        var root = document.documentElement;
+        var stored = localStorage.getItem('theme');
+        if (stored) {
+          root.setAttribute('data-theme', stored);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          root.setAttribute('data-theme', 'light');
+        }
 
         toggle.addEventListener('click', function() {
-          const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           root.setAttribute('data-theme', next);
           localStorage.setItem('theme', next);
         });
       })();
 
+      // Mobile nav toggle
+      (function() {
+        var burger = document.getElementById('navBurger');
+        var links = document.querySelector('.nav-links');
+        burger.addEventListener('click', function() {
+          var open = links.classList.toggle('open');
+          burger.setAttribute('aria-expanded', open);
+        });
+        // Close on link click
+        links.querySelectorAll('a').forEach(function(a) {
+          a.addEventListener('click', function() {
+            links.classList.remove('open');
+            burger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      })();
+
       // Reveal on scroll
       (function() {
-        const els = document.querySelectorAll('.section, .hero');
+        var els = document.querySelectorAll('.section, .hero');
         if (!window.IntersectionObserver) {
           els.forEach(function(el) { el.classList.add('visible'); });
           return;
