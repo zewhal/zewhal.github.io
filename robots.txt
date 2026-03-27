@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /blogs/
-Sitemap: https://zewhal.xyz/sitemap.xml
+Sitemap: https://mjabelcina.com/sitemap.xml
